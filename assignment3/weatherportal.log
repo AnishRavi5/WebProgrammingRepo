@@ -1,0 +1,1173 @@
+Portal started...
+ * Running on all addresses.
+   WARNING: This is a development server. Do not use it in a production deployment.
+ * Running on http://10.155.175.135:5009/ (Press CTRL+C to quit)
+BEGIN (implicit)
+PRAGMA main.table_info("admin")
+[raw sql] ()
+PRAGMA temp.table_info("admin")
+[raw sql] ()
+PRAGMA main.table_info("user")
+[raw sql] ()
+PRAGMA temp.table_info("user")
+[raw sql] ()
+PRAGMA main.table_info("city")
+[raw sql] ()
+PRAGMA temp.table_info("city")
+[raw sql] ()
+PRAGMA main.table_info("usercity")
+[raw sql] ()
+PRAGMA temp.table_info("usercity")
+[raw sql] ()
+
+CREATE TABLE admin (
+	id INTEGER NOT NULL, 
+	name VARCHAR, 
+	password VARCHAR, 
+	PRIMARY KEY (id)
+)
+
+
+[no key 0.00016s] ()
+
+CREATE TABLE user (
+	id INTEGER NOT NULL, 
+	name VARCHAR, 
+	password VARCHAR, 
+	PRIMARY KEY (id)
+)
+
+
+[no key 0.00007s] ()
+
+CREATE TABLE city (
+	id INTEGER NOT NULL, 
+	"adminId" INTEGER, 
+	name VARCHAR, 
+	url VARCHAR, 
+	PRIMARY KEY (id), 
+	FOREIGN KEY("adminId") REFERENCES admin (id)
+)
+
+
+[no key 0.00006s] ()
+
+CREATE TABLE usercity (
+	id INTEGER NOT NULL, 
+	"userId" INTEGER, 
+	"cityId" INTEGER, 
+	month VARCHAR, 
+	year VARCHAR, 
+	weather_params VARCHAR, 
+	PRIMARY KEY (id), 
+	FOREIGN KEY("userId") REFERENCES user (id), 
+	FOREIGN KEY("cityId") REFERENCES city (id)
+)
+
+
+[no key 0.00006s] ()
+COMMIT
+Inside add_city for admin 1
+
+BEGIN (implicit)
+SELECT admin.id AS admin_id, admin.name AS admin_name, admin.password AS admin_password 
+FROM admin 
+WHERE admin.id = ?
+[generated in 0.00016s] ('1',)
+127.0.0.1 - - [11/Mar/2026 14:33:53] "[33mPOST /admin/1/cities HTTP/1.1[0m" 404 -
+Inside add_city for admin 1
+
+BEGIN (implicit)
+SELECT admin.id AS admin_id, admin.name AS admin_name, admin.password AS admin_password 
+FROM admin 
+WHERE admin.id = ?
+[cached since 0.01482s ago] ('1',)
+127.0.0.1 - - [11/Mar/2026 14:33:53] "[33mPOST /admin/1/cities HTTP/1.1[0m" 404 -
+Inside add_city for admin 1
+
+BEGIN (implicit)
+SELECT admin.id AS admin_id, admin.name AS admin_name, admin.password AS admin_password 
+FROM admin 
+WHERE admin.id = ?
+[cached since 0.02394s ago] ('1',)
+127.0.0.1 - - [11/Mar/2026 14:33:53] "[33mPOST /admin/1/cities HTTP/1.1[0m" 404 -
+Inside get_cities for admin 1
+
+BEGIN (implicit)
+SELECT admin.id AS admin_id, admin.name AS admin_name, admin.password AS admin_password 
+FROM admin 
+WHERE admin.id = ?
+[cached since 0.03292s ago] ('1',)
+127.0.0.1 - - [11/Mar/2026 14:33:53] "[33mGET /admin/1/cities HTTP/1.1[0m" 404 -
+Inside get_city_by_id admin:1 city:1
+
+BEGIN (implicit)
+SELECT admin.id AS admin_id, admin.name AS admin_name, admin.password AS admin_password 
+FROM admin 
+WHERE admin.id = ?
+[cached since 0.04097s ago] ('1',)
+127.0.0.1 - - [11/Mar/2026 14:33:53] "[33mGET /admin/1/cities/1 HTTP/1.1[0m" 404 -
+Inside get_city_by_id admin:1 city:10
+
+BEGIN (implicit)
+SELECT admin.id AS admin_id, admin.name AS admin_name, admin.password AS admin_password 
+FROM admin 
+WHERE admin.id = ?
+[cached since 0.05129s ago] ('1',)
+127.0.0.1 - - [11/Mar/2026 14:33:53] "[33mGET /admin/1/cities/10 HTTP/1.1[0m" 404 -
+Inside get_city_by_id admin:2 city:1
+
+BEGIN (implicit)
+SELECT admin.id AS admin_id, admin.name AS admin_name, admin.password AS admin_password 
+FROM admin 
+WHERE admin.id = ?
+[cached since 0.05992s ago] ('2',)
+127.0.0.1 - - [11/Mar/2026 14:33:53] "[33mGET /admin/2/cities/1 HTTP/1.1[0m" 404 -
+Inside add_admin
+Received request:{'name': 'Admin1', 'password': 'Admin1'}
+BEGIN (implicit)
+SELECT admin.id AS admin_id, admin.name AS admin_name, admin.password AS admin_password 
+FROM admin 
+WHERE admin.name = ?
+ LIMIT ? OFFSET ?
+[generated in 0.00039s] ('Admin1', 1, 0)
+INSERT INTO admin (name, password) VALUES (?, ?)
+[generated in 0.00018s] ('Admin1', 'Admin1')
+ROLLBACK
+Exception on /admin [POST]
+Traceback (most recent call last):
+  File "/Users/anishravindran/Desktop/UT/CS 329/ModernWebApps/weather-portal-templates/assignment3/.venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1967, in _exec_single_context
+    self.dialect.do_execute(
+  File "/Users/anishravindran/Desktop/UT/CS 329/ModernWebApps/weather-portal-templates/assignment3/.venv/lib/python3.11/site-packages/sqlalchemy/engine/default.py", line 952, in do_execute
+    cursor.execute(statement, parameters)
+sqlite3.OperationalError: attempt to write a readonly database
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/Users/anishravindran/Desktop/UT/CS 329/ModernWebApps/weather-portal-templates/assignment3/.venv/lib/python3.11/site-packages/flask/app.py", line 2070, in wsgi_app
+    response = self.full_dispatch_request()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/anishravindran/Desktop/UT/CS 329/ModernWebApps/weather-portal-templates/assignment3/.venv/lib/python3.11/site-packages/flask/app.py", line 1515, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/anishravindran/Desktop/UT/CS 329/ModernWebApps/weather-portal-templates/assignment3/.venv/lib/python3.11/site-packages/flask/app.py", line 1513, in full_dispatch_request
+    rv = self.dispatch_request()
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/anishravindran/Desktop/UT/CS 329/ModernWebApps/weather-portal-templates/assignment3/.venv/lib/python3.11/site-packages/flask/app.py", line 1499, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**req.view_args)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/anishravindran/Desktop/UT/CS 329/ModernWebApps/weather-portal-templates/assignment3/application.py", line 163, in add_admin
+    db.commit()
+  File "/Users/anishravindran/Desktop/UT/CS 329/ModernWebApps/weather-portal-templates/assignment3/.venv/lib/python3.11/site-packages/sqlalchemy/orm/session.py", line 2030, in commit
+    trans.commit(_to_root=True)
+  File "<string>", line 2, in commit
+  File "/Users/anishravindran/Desktop/UT/CS 329/ModernWebApps/weather-portal-templates/assignment3/.venv/lib/python3.11/site-packages/sqlalchemy/orm/state_changes.py", line 137, in _go
+    ret_value = fn(self, *arg, **kw)
+                ^^^^^^^^^^^^^^^^^^^^
+  File "/Users/anishravindran/Desktop/UT/CS 329/ModernWebApps/weather-portal-templates/assignment3/.venv/lib/python3.11/site-packages/sqlalchemy/orm/session.py", line 1311, in commit
+    self._prepare_impl()
+  File "<string>", line 2, in _prepare_impl
+  File "/Users/anishravindran/Desktop/UT/CS 329/ModernWebApps/weather-portal-templates/assignment3/.venv/lib/python3.11/site-packages/sqlalchemy/orm/state_changes.py", line 137, in _go
+    ret_value = fn(self, *arg, **kw)
+                ^^^^^^^^^^^^^^^^^^^^
+  File "/Users/anishravindran/Desktop/UT/CS 329/ModernWebApps/weather-portal-templates/assignment3/.venv/lib/python3.11/site-packages/sqlalchemy/orm/session.py", line 1286, in _prepare_impl
+    self.session.flush()
+  File "/Users/anishravindran/Desktop/UT/CS 329/ModernWebApps/weather-portal-templates/assignment3/.venv/lib/python3.11/site-packages/sqlalchemy/orm/session.py", line 4331, in flush
+    self._flush(objects)
+  File "/Users/anishravindran/Desktop/UT/CS 329/ModernWebApps/weather-portal-templates/assignment3/.venv/lib/python3.11/site-packages/sqlalchemy/orm/session.py", line 4466, in _flush
+    with util.safe_reraise():
+  File "/Users/anishravindran/Desktop/UT/CS 329/ModernWebApps/weather-portal-templates/assignment3/.venv/lib/python3.11/site-packages/sqlalchemy/util/langhelpers.py", line 121, in __exit__
+    raise exc_value.with_traceback(exc_tb)
+  File "/Users/anishravindran/Desktop/UT/CS 329/ModernWebApps/weather-portal-templates/assignment3/.venv/lib/python3.11/site-packages/sqlalchemy/orm/session.py", line 4427, in _flush
+    flush_context.execute()
+  File "/Users/anishravindran/Desktop/UT/CS 329/ModernWebApps/weather-portal-templates/assignment3/.venv/lib/python3.11/site-packages/sqlalchemy/orm/unitofwork.py", line 466, in execute
+    rec.execute(self)
+  File "/Users/anishravindran/Desktop/UT/CS 329/ModernWebApps/weather-portal-templates/assignment3/.venv/lib/python3.11/site-packages/sqlalchemy/orm/unitofwork.py", line 642, in execute
+    util.preloaded.orm_persistence.save_obj(
+  File "/Users/anishravindran/Desktop/UT/CS 329/ModernWebApps/weather-portal-templates/assignment3/.venv/lib/python3.11/site-packages/sqlalchemy/orm/persistence.py", line 93, in save_obj
+    _emit_insert_statements(
+  File "/Users/anishravindran/Desktop/UT/CS 329/ModernWebApps/weather-portal-templates/assignment3/.venv/lib/python3.11/site-packages/sqlalchemy/orm/persistence.py", line 1233, in _emit_insert_statements
+    result = connection.execute(
+             ^^^^^^^^^^^^^^^^^^^
+  File "/Users/anishravindran/Desktop/UT/CS 329/ModernWebApps/weather-portal-templates/assignment3/.venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1419, in execute
+    return meth(
+           ^^^^^
+  File "/Users/anishravindran/Desktop/UT/CS 329/ModernWebApps/weather-portal-templates/assignment3/.venv/lib/python3.11/site-packages/sqlalchemy/sql/elements.py", line 527, in _execute_on_connection
+    return connection._execute_clauseelement(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/anishravindran/Desktop/UT/CS 329/ModernWebApps/weather-portal-templates/assignment3/.venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1641, in _execute_clauseelement
+    ret = self._execute_context(
+          ^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/anishravindran/Desktop/UT/CS 329/ModernWebApps/weather-portal-templates/assignment3/.venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1846, in _execute_context
+    return self._exec_single_context(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/anishravindran/Desktop/UT/CS 329/ModernWebApps/weather-portal-templates/assignment3/.venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1986, in _exec_single_context
+    self._handle_dbapi_exception(
+  File "/Users/anishravindran/Desktop/UT/CS 329/ModernWebApps/weather-portal-templates/assignment3/.venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 2363, in _handle_dbapi_exception
+    raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+  File "/Users/anishravindran/Desktop/UT/CS 329/ModernWebApps/weather-portal-templates/assignment3/.venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1967, in _exec_single_context
+    self.dialect.do_execute(
+  File "/Users/anishravindran/Desktop/UT/CS 329/ModernWebApps/weather-portal-templates/assignment3/.venv/lib/python3.11/site-packages/sqlalchemy/engine/default.py", line 952, in do_execute
+    cursor.execute(statement, parameters)
+sqlalchemy.exc.OperationalError: (sqlite3.OperationalError) attempt to write a readonly database
+[SQL: INSERT INTO admin (name, password) VALUES (?, ?)]
+[parameters: ('Admin1', 'Admin1')]
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+127.0.0.1 - - [11/Mar/2026 14:34:34] "[35m[1mPOST /admin HTTP/1.1[0m" 500 -
+Inside add_admin
+Received request:{'name': 'Admin1', 'password': 'Admin1'}
+BEGIN (implicit)
+SELECT admin.id AS admin_id, admin.name AS admin_name, admin.password AS admin_password 
+FROM admin 
+WHERE admin.name = ?
+ LIMIT ? OFFSET ?
+[cached since 132s ago] ('Admin1', 1, 0)
+INSERT INTO admin (name, password) VALUES (?, ?)
+[cached since 132s ago] ('Admin1', 'Admin1')
+ROLLBACK
+Exception on /admin [POST]
+Traceback (most recent call last):
+  File "/Users/anishravindran/Desktop/UT/CS 329/ModernWebApps/weather-portal-templates/assignment3/.venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1967, in _exec_single_context
+    self.dialect.do_execute(
+  File "/Users/anishravindran/Desktop/UT/CS 329/ModernWebApps/weather-portal-templates/assignment3/.venv/lib/python3.11/site-packages/sqlalchemy/engine/default.py", line 952, in do_execute
+    cursor.execute(statement, parameters)
+sqlite3.OperationalError: attempt to write a readonly database
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/Users/anishravindran/Desktop/UT/CS 329/ModernWebApps/weather-portal-templates/assignment3/.venv/lib/python3.11/site-packages/flask/app.py", line 2070, in wsgi_app
+    response = self.full_dispatch_request()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/anishravindran/Desktop/UT/CS 329/ModernWebApps/weather-portal-templates/assignment3/.venv/lib/python3.11/site-packages/flask/app.py", line 1515, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/anishravindran/Desktop/UT/CS 329/ModernWebApps/weather-portal-templates/assignment3/.venv/lib/python3.11/site-packages/flask/app.py", line 1513, in full_dispatch_request
+    rv = self.dispatch_request()
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/anishravindran/Desktop/UT/CS 329/ModernWebApps/weather-portal-templates/assignment3/.venv/lib/python3.11/site-packages/flask/app.py", line 1499, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**req.view_args)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/anishravindran/Desktop/UT/CS 329/ModernWebApps/weather-portal-templates/assignment3/application.py", line 163, in add_admin
+    db.commit()
+  File "/Users/anishravindran/Desktop/UT/CS 329/ModernWebApps/weather-portal-templates/assignment3/.venv/lib/python3.11/site-packages/sqlalchemy/orm/session.py", line 2030, in commit
+    trans.commit(_to_root=True)
+  File "<string>", line 2, in commit
+  File "/Users/anishravindran/Desktop/UT/CS 329/ModernWebApps/weather-portal-templates/assignment3/.venv/lib/python3.11/site-packages/sqlalchemy/orm/state_changes.py", line 137, in _go
+    ret_value = fn(self, *arg, **kw)
+                ^^^^^^^^^^^^^^^^^^^^
+  File "/Users/anishravindran/Desktop/UT/CS 329/ModernWebApps/weather-portal-templates/assignment3/.venv/lib/python3.11/site-packages/sqlalchemy/orm/session.py", line 1311, in commit
+    self._prepare_impl()
+  File "<string>", line 2, in _prepare_impl
+  File "/Users/anishravindran/Desktop/UT/CS 329/ModernWebApps/weather-portal-templates/assignment3/.venv/lib/python3.11/site-packages/sqlalchemy/orm/state_changes.py", line 137, in _go
+    ret_value = fn(self, *arg, **kw)
+                ^^^^^^^^^^^^^^^^^^^^
+  File "/Users/anishravindran/Desktop/UT/CS 329/ModernWebApps/weather-portal-templates/assignment3/.venv/lib/python3.11/site-packages/sqlalchemy/orm/session.py", line 1286, in _prepare_impl
+    self.session.flush()
+  File "/Users/anishravindran/Desktop/UT/CS 329/ModernWebApps/weather-portal-templates/assignment3/.venv/lib/python3.11/site-packages/sqlalchemy/orm/session.py", line 4331, in flush
+    self._flush(objects)
+  File "/Users/anishravindran/Desktop/UT/CS 329/ModernWebApps/weather-portal-templates/assignment3/.venv/lib/python3.11/site-packages/sqlalchemy/orm/session.py", line 4466, in _flush
+    with util.safe_reraise():
+  File "/Users/anishravindran/Desktop/UT/CS 329/ModernWebApps/weather-portal-templates/assignment3/.venv/lib/python3.11/site-packages/sqlalchemy/util/langhelpers.py", line 121, in __exit__
+    raise exc_value.with_traceback(exc_tb)
+  File "/Users/anishravindran/Desktop/UT/CS 329/ModernWebApps/weather-portal-templates/assignment3/.venv/lib/python3.11/site-packages/sqlalchemy/orm/session.py", line 4427, in _flush
+    flush_context.execute()
+  File "/Users/anishravindran/Desktop/UT/CS 329/ModernWebApps/weather-portal-templates/assignment3/.venv/lib/python3.11/site-packages/sqlalchemy/orm/unitofwork.py", line 466, in execute
+    rec.execute(self)
+  File "/Users/anishravindran/Desktop/UT/CS 329/ModernWebApps/weather-portal-templates/assignment3/.venv/lib/python3.11/site-packages/sqlalchemy/orm/unitofwork.py", line 642, in execute
+    util.preloaded.orm_persistence.save_obj(
+  File "/Users/anishravindran/Desktop/UT/CS 329/ModernWebApps/weather-portal-templates/assignment3/.venv/lib/python3.11/site-packages/sqlalchemy/orm/persistence.py", line 93, in save_obj
+    _emit_insert_statements(
+  File "/Users/anishravindran/Desktop/UT/CS 329/ModernWebApps/weather-portal-templates/assignment3/.venv/lib/python3.11/site-packages/sqlalchemy/orm/persistence.py", line 1233, in _emit_insert_statements
+    result = connection.execute(
+             ^^^^^^^^^^^^^^^^^^^
+  File "/Users/anishravindran/Desktop/UT/CS 329/ModernWebApps/weather-portal-templates/assignment3/.venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1419, in execute
+    return meth(
+           ^^^^^
+  File "/Users/anishravindran/Desktop/UT/CS 329/ModernWebApps/weather-portal-templates/assignment3/.venv/lib/python3.11/site-packages/sqlalchemy/sql/elements.py", line 527, in _execute_on_connection
+    return connection._execute_clauseelement(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/anishravindran/Desktop/UT/CS 329/ModernWebApps/weather-portal-templates/assignment3/.venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1641, in _execute_clauseelement
+    ret = self._execute_context(
+          ^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/anishravindran/Desktop/UT/CS 329/ModernWebApps/weather-portal-templates/assignment3/.venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1846, in _execute_context
+    return self._exec_single_context(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/anishravindran/Desktop/UT/CS 329/ModernWebApps/weather-portal-templates/assignment3/.venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1986, in _exec_single_context
+    self._handle_dbapi_exception(
+  File "/Users/anishravindran/Desktop/UT/CS 329/ModernWebApps/weather-portal-templates/assignment3/.venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 2363, in _handle_dbapi_exception
+    raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+  File "/Users/anishravindran/Desktop/UT/CS 329/ModernWebApps/weather-portal-templates/assignment3/.venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1967, in _exec_single_context
+    self.dialect.do_execute(
+  File "/Users/anishravindran/Desktop/UT/CS 329/ModernWebApps/weather-portal-templates/assignment3/.venv/lib/python3.11/site-packages/sqlalchemy/engine/default.py", line 952, in do_execute
+    cursor.execute(statement, parameters)
+sqlalchemy.exc.OperationalError: (sqlite3.OperationalError) attempt to write a readonly database
+[SQL: INSERT INTO admin (name, password) VALUES (?, ?)]
+[parameters: ('Admin1', 'Admin1')]
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+127.0.0.1 - - [11/Mar/2026 14:36:46] "[35m[1mPOST /admin HTTP/1.1[0m" 500 -
+Portal started...
+ * Running on all addresses.
+   WARNING: This is a development server. Do not use it in a production deployment.
+ * Running on http://10.155.175.135:5009/ (Press CTRL+C to quit)
+BEGIN (implicit)
+PRAGMA main.table_info("admin")
+[raw sql] ()
+PRAGMA temp.table_info("admin")
+[raw sql] ()
+PRAGMA main.table_info("user")
+[raw sql] ()
+PRAGMA temp.table_info("user")
+[raw sql] ()
+PRAGMA main.table_info("city")
+[raw sql] ()
+PRAGMA temp.table_info("city")
+[raw sql] ()
+PRAGMA main.table_info("usercity")
+[raw sql] ()
+PRAGMA temp.table_info("usercity")
+[raw sql] ()
+
+CREATE TABLE admin (
+	id INTEGER NOT NULL, 
+	name VARCHAR, 
+	password VARCHAR, 
+	PRIMARY KEY (id)
+)
+
+
+[no key 0.00010s] ()
+
+CREATE TABLE user (
+	id INTEGER NOT NULL, 
+	name VARCHAR, 
+	password VARCHAR, 
+	PRIMARY KEY (id)
+)
+
+
+[no key 0.00007s] ()
+
+CREATE TABLE city (
+	id INTEGER NOT NULL, 
+	"adminId" INTEGER, 
+	name VARCHAR, 
+	url VARCHAR, 
+	PRIMARY KEY (id), 
+	FOREIGN KEY("adminId") REFERENCES admin (id)
+)
+
+
+[no key 0.00006s] ()
+
+CREATE TABLE usercity (
+	id INTEGER NOT NULL, 
+	"userId" INTEGER, 
+	"cityId" INTEGER, 
+	month VARCHAR, 
+	year VARCHAR, 
+	weather_params VARCHAR, 
+	PRIMARY KEY (id), 
+	FOREIGN KEY("userId") REFERENCES user (id), 
+	FOREIGN KEY("cityId") REFERENCES city (id)
+)
+
+
+[no key 0.00013s] ()
+COMMIT
+Inside add_admin
+Received request:{'name': 'Admin1', 'password': 'Admin1'}
+BEGIN (implicit)
+SELECT admin.id AS admin_id, admin.name AS admin_name, admin.password AS admin_password 
+FROM admin 
+WHERE admin.name = ?
+ LIMIT ? OFFSET ?
+[generated in 0.00015s] ('Admin1', 1, 0)
+INSERT INTO admin (name, password) VALUES (?, ?)
+[generated in 0.00009s] ('Admin1', 'Admin1')
+COMMIT
+BEGIN (implicit)
+SELECT admin.id, admin.name, admin.password 
+FROM admin 
+WHERE admin.id = ?
+[generated in 0.00010s] (1,)
+ROLLBACK
+127.0.0.1 - - [11/Mar/2026 14:42:30] "POST /admin HTTP/1.1" 200 -
+Inside get_admins
+BEGIN (implicit)
+SELECT admin.id AS admin_id, admin.name AS admin_name, admin.password AS admin_password 
+FROM admin
+[generated in 0.00052s] ()
+ROLLBACK
+127.0.0.1 - - [11/Mar/2026 14:42:54] "GET /admin HTTP/1.1" 200 -
+Inside get_admin_by_id 1
+
+BEGIN (implicit)
+SELECT admin.id AS admin_id, admin.name AS admin_name, admin.password AS admin_password 
+FROM admin 
+WHERE admin.id = ?
+[generated in 0.00053s] ('1',)
+ROLLBACK
+127.0.0.1 - - [11/Mar/2026 14:42:59] "GET /admin/1 HTTP/1.1" 200 -
+Inside delete_admin_by_id 1
+
+BEGIN (implicit)
+SELECT admin.id AS admin_id, admin.name AS admin_name, admin.password AS admin_password 
+FROM admin 
+WHERE admin.id = ?
+ LIMIT ? OFFSET ?
+[generated in 0.00071s] ('1', 1, 0)
+DELETE FROM admin WHERE admin.id = ?
+[generated in 0.00010s] (1,)
+COMMIT
+127.0.0.1 - - [11/Mar/2026 19:59:18] "DELETE /admin/1 HTTP/1.1" 200 -
+Inside add_user
+Received request:{'name': 'User1', 'password': 'User1'}
+BEGIN (implicit)
+SELECT user.id AS user_id, user.name AS user_name, user.password AS user_password 
+FROM user 
+WHERE user.name = ?
+ LIMIT ? OFFSET ?
+[generated in 0.00074s] ('User1', 1, 0)
+INSERT INTO user (name, password) VALUES (?, ?)
+[generated in 0.00182s] ('User1', 'User1')
+COMMIT
+BEGIN (implicit)
+SELECT user.id, user.name, user.password 
+FROM user 
+WHERE user.id = ?
+[generated in 0.00010s] (1,)
+ROLLBACK
+127.0.0.1 - - [11/Mar/2026 19:59:23] "POST /users HTTP/1.1" 200 -
+Inside get_users
+BEGIN (implicit)
+SELECT user.id AS user_id, user.name AS user_name, user.password AS user_password 
+FROM user
+[generated in 0.00076s] ()
+ROLLBACK
+127.0.0.1 - - [11/Mar/2026 19:59:27] "GET /users HTTP/1.1" 200 -
+Inside get_user_by_id 1
+
+BEGIN (implicit)
+SELECT user.id AS user_id, user.name AS user_name, user.password AS user_password 
+FROM user 
+WHERE user.id = ?
+[generated in 0.00038s] ('1',)
+ROLLBACK
+127.0.0.1 - - [11/Mar/2026 19:59:31] "GET /users/1 HTTP/1.1" 200 -
+Inside delete_user_by_id 1
+
+BEGIN (implicit)
+SELECT user.id AS user_id, user.name AS user_name, user.password AS user_password 
+FROM user 
+WHERE user.id = ?
+ LIMIT ? OFFSET ?
+[generated in 0.00063s] ('1', 1, 0)
+DELETE FROM user WHERE user.id = ?
+[generated in 0.00018s] (1,)
+COMMIT
+127.0.0.1 - - [11/Mar/2026 19:59:34] "DELETE /users/1 HTTP/1.1" 200 -
+Inside add_admin
+Received request:{'name': 'Admin1', 'password': 'Admin1'}
+BEGIN (implicit)
+SELECT admin.id AS admin_id, admin.name AS admin_name, admin.password AS admin_password 
+FROM admin 
+WHERE admin.name = ?
+ LIMIT ? OFFSET ?
+[cached since 6331s ago] ('Admin1', 1, 0)
+INSERT INTO admin (name, password) VALUES (?, ?)
+[cached since 6331s ago] ('Admin1', 'Admin1')
+COMMIT
+BEGIN (implicit)
+SELECT admin.id, admin.name, admin.password 
+FROM admin 
+WHERE admin.id = ?
+[cached since 6331s ago] (1,)
+ROLLBACK
+127.0.0.1 - - [11/Mar/2026 19:59:54] "POST /admin HTTP/1.1" 200 -
+Inside add_city for admin 1
+
+BEGIN (implicit)
+SELECT admin.id AS admin_id, admin.name AS admin_name, admin.password AS admin_password 
+FROM admin 
+WHERE admin.id = ?
+[cached since 6306s ago] ('1',)
+INSERT INTO city ("adminId", name, url) VALUES (?, ?, ?)
+[generated in 0.00018s] ('1', 'Austin', 'http://austin-url.html')
+COMMIT
+BEGIN (implicit)
+SELECT city.id, city."adminId", city.name, city.url 
+FROM city 
+WHERE city.id = ?
+[generated in 0.00008s] (1,)
+ROLLBACK
+127.0.0.1 - - [11/Mar/2026 19:59:58] "POST /admin/1/cities HTTP/1.1" 200 -
+Inside add_city for admin 1
+
+BEGIN (implicit)
+SELECT admin.id AS admin_id, admin.name AS admin_name, admin.password AS admin_password 
+FROM admin 
+WHERE admin.id = ?
+[cached since 6310s ago] ('1',)
+INSERT INTO city ("adminId", name, url) VALUES (?, ?, ?)
+[cached since 4.066s ago] ('1', 'Dallas', 'http://dallas-url.html')
+COMMIT
+BEGIN (implicit)
+SELECT city.id, city."adminId", city.name, city.url 
+FROM city 
+WHERE city.id = ?
+[cached since 4.065s ago] (2,)
+ROLLBACK
+127.0.0.1 - - [11/Mar/2026 20:00:02] "POST /admin/1/cities HTTP/1.1" 200 -
+Inside add_city for admin 1
+
+BEGIN (implicit)
+SELECT admin.id AS admin_id, admin.name AS admin_name, admin.password AS admin_password 
+FROM admin 
+WHERE admin.id = ?
+[cached since 6313s ago] ('1',)
+INSERT INTO city ("adminId", name, url) VALUES (?, ?, ?)
+[cached since 7.114s ago] ('1', 'Houston', 'http://houston-url.html')
+COMMIT
+BEGIN (implicit)
+SELECT city.id, city."adminId", city.name, city.url 
+FROM city 
+WHERE city.id = ?
+[cached since 7.113s ago] (3,)
+ROLLBACK
+127.0.0.1 - - [11/Mar/2026 20:00:05] "POST /admin/1/cities HTTP/1.1" 200 -
+Inside get_cities for admin 1
+
+BEGIN (implicit)
+SELECT admin.id AS admin_id, admin.name AS admin_name, admin.password AS admin_password 
+FROM admin 
+WHERE admin.id = ?
+[cached since 6340s ago] ('1',)
+SELECT city.id AS city_id, city."adminId" AS "city_adminId", city.name AS city_name, city.url AS city_url 
+FROM city 
+WHERE city."adminId" = ?
+[generated in 0.00024s] ('1',)
+ROLLBACK
+127.0.0.1 - - [11/Mar/2026 20:00:31] "GET /admin/1/cities HTTP/1.1" 200 -
+Inside get_city_by_id admin:1 city:1
+
+BEGIN (implicit)
+SELECT admin.id AS admin_id, admin.name AS admin_name, admin.password AS admin_password 
+FROM admin 
+WHERE admin.id = ?
+[cached since 6353s ago] ('1',)
+SELECT city.id AS city_id, city."adminId" AS "city_adminId", city.name AS city_name, city.url AS city_url 
+FROM city 
+WHERE city.id = ? AND city."adminId" = ?
+ LIMIT ? OFFSET ?
+[generated in 0.00044s] ('1', '1', 1, 0)
+ROLLBACK
+127.0.0.1 - - [11/Mar/2026 20:00:45] "GET /admin/1/cities/1 HTTP/1.1" 200 -
+Inside get_city_by_id admin:1 city:10
+
+BEGIN (implicit)
+SELECT admin.id AS admin_id, admin.name AS admin_name, admin.password AS admin_password 
+FROM admin 
+WHERE admin.id = ?
+[cached since 6356s ago] ('1',)
+SELECT city.id AS city_id, city."adminId" AS "city_adminId", city.name AS city_name, city.url AS city_url 
+FROM city 
+WHERE city.id = ? AND city."adminId" = ?
+ LIMIT ? OFFSET ?
+[cached since 3.582s ago] ('10', '1', 1, 0)
+ROLLBACK
+127.0.0.1 - - [11/Mar/2026 20:00:48] "[33mGET /admin/1/cities/10 HTTP/1.1[0m" 404 -
+Inside get_city_by_id admin:2 city:1
+
+BEGIN (implicit)
+SELECT admin.id AS admin_id, admin.name AS admin_name, admin.password AS admin_password 
+FROM admin 
+WHERE admin.id = ?
+[cached since 6362s ago] ('2',)
+ROLLBACK
+127.0.0.1 - - [11/Mar/2026 20:00:54] "[33mGET /admin/2/cities/1 HTTP/1.1[0m" 404 -
+Inside add_city for admin 2
+
+BEGIN (implicit)
+SELECT admin.id AS admin_id, admin.name AS admin_name, admin.password AS admin_password 
+FROM admin 
+WHERE admin.id = ?
+[cached since 6367s ago] ('2',)
+ROLLBACK
+127.0.0.1 - - [11/Mar/2026 20:00:58] "[33mPOST /admin/2/cities HTTP/1.1[0m" 404 -
+Inside add_admin
+Received request:{'name': 'Admin1', 'password': 'Admin1'}
+BEGIN (implicit)
+SELECT admin.id AS admin_id, admin.name AS admin_name, admin.password AS admin_password 
+FROM admin 
+WHERE admin.name = ?
+ LIMIT ? OFFSET ?
+[cached since 6410s ago] ('Admin1', 1, 0)
+ROLLBACK
+127.0.0.1 - - [11/Mar/2026 20:01:13] "[31m[1mPOST /admin HTTP/1.1[0m" 400 -
+Inside add_city for admin 2
+
+BEGIN (implicit)
+SELECT admin.id AS admin_id, admin.name AS admin_name, admin.password AS admin_password 
+FROM admin 
+WHERE admin.id = ?
+[cached since 6385s ago] ('2',)
+ROLLBACK
+127.0.0.1 - - [11/Mar/2026 20:01:17] "[33mPOST /admin/2/cities HTTP/1.1[0m" 404 -
+Inside add_user
+Received request:{'name': 'User1', 'password': 'User1'}
+BEGIN (implicit)
+SELECT user.id AS user_id, user.name AS user_name, user.password AS user_password 
+FROM user 
+WHERE user.name = ?
+ LIMIT ? OFFSET ?
+[cached since 117.3s ago] ('User1', 1, 0)
+INSERT INTO user (name, password) VALUES (?, ?)
+[cached since 117.3s ago] ('User1', 'User1')
+COMMIT
+BEGIN (implicit)
+SELECT user.id, user.name, user.password 
+FROM user 
+WHERE user.id = ?
+[cached since 117.3s ago] (1,)
+ROLLBACK
+127.0.0.1 - - [11/Mar/2026 20:01:20] "POST /users HTTP/1.1" 200 -
+Inside add_user_city for user 1
+
+BEGIN (implicit)
+SELECT user.id AS user_id, user.name AS user_name, user.password AS user_password 
+FROM user 
+WHERE user.id = ?
+[cached since 112.5s ago] ('1',)
+ROLLBACK
+Exception on /users/1/cities [POST]
+Traceback (most recent call last):
+  File "/Users/anishravindran/Desktop/UT/CS 329/ModernWebApps/weather-portal-templates/assignment3/.venv/lib/python3.11/site-packages/flask/app.py", line 2070, in wsgi_app
+    response = self.full_dispatch_request()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/anishravindran/Desktop/UT/CS 329/ModernWebApps/weather-portal-templates/assignment3/.venv/lib/python3.11/site-packages/flask/app.py", line 1515, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/anishravindran/Desktop/UT/CS 329/ModernWebApps/weather-portal-templates/assignment3/.venv/lib/python3.11/site-packages/flask/app.py", line 1513, in full_dispatch_request
+    rv = self.dispatch_request()
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/anishravindran/Desktop/UT/CS 329/ModernWebApps/weather-portal-templates/assignment3/.venv/lib/python3.11/site-packages/flask/app.py", line 1499, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**req.view_args)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/anishravindran/Desktop/UT/CS 329/ModernWebApps/weather-portal-templates/assignment3/application.py", line 324, in add_user_city
+    params    = data['params']
+                ~~~~^^^^^^^^^^
+KeyError: 'params'
+127.0.0.1 - - [11/Mar/2026 20:01:23] "[35m[1mPOST /users/1/cities HTTP/1.1[0m" 500 -
+Inside add_admin
+Received request:{'name': 'Admin2', 'password': 'Admin2'}
+BEGIN (implicit)
+SELECT admin.id AS admin_id, admin.name AS admin_name, admin.password AS admin_password 
+FROM admin 
+WHERE admin.name = ?
+ LIMIT ? OFFSET ?
+[cached since 6562s ago] ('Admin2', 1, 0)
+INSERT INTO admin (name, password) VALUES (?, ?)
+[cached since 6562s ago] ('Admin2', 'Admin2')
+COMMIT
+BEGIN (implicit)
+SELECT admin.id, admin.name, admin.password 
+FROM admin 
+WHERE admin.id = ?
+[cached since 6562s ago] (2,)
+ROLLBACK
+127.0.0.1 - - [11/Mar/2026 20:03:45] "POST /admin HTTP/1.1" 200 -
+Inside add_city for admin 2
+
+BEGIN (implicit)
+SELECT admin.id AS admin_id, admin.name AS admin_name, admin.password AS admin_password 
+FROM admin 
+WHERE admin.id = ?
+[cached since 6537s ago] ('2',)
+INSERT INTO city ("adminId", name, url) VALUES (?, ?, ?)
+[cached since 230.8s ago] ('2', 'San Antonio', 'http://san-antonio-url.html')
+COMMIT
+BEGIN (implicit)
+SELECT city.id, city."adminId", city.name, city.url 
+FROM city 
+WHERE city.id = ?
+[cached since 230.8s ago] (4,)
+ROLLBACK
+127.0.0.1 - - [11/Mar/2026 20:03:48] "POST /admin/2/cities HTTP/1.1" 200 -
+Portal started...
+Portal started...
+ * Running on all addresses.
+   WARNING: This is a development server. Do not use it in a production deployment.
+ * Running on http://10.147.85.117:5009/ (Press CTRL+C to quit)
+BEGIN (implicit)
+PRAGMA main.table_info("admin")
+[raw sql] ()
+PRAGMA temp.table_info("admin")
+[raw sql] ()
+PRAGMA main.table_info("user")
+[raw sql] ()
+PRAGMA temp.table_info("user")
+[raw sql] ()
+PRAGMA main.table_info("city")
+[raw sql] ()
+PRAGMA temp.table_info("city")
+[raw sql] ()
+PRAGMA main.table_info("usercity")
+[raw sql] ()
+PRAGMA temp.table_info("usercity")
+[raw sql] ()
+
+CREATE TABLE admin (
+	id INTEGER NOT NULL, 
+	name VARCHAR, 
+	password VARCHAR, 
+	PRIMARY KEY (id)
+)
+
+
+[no key 0.00006s] ()
+
+CREATE TABLE user (
+	id INTEGER NOT NULL, 
+	name VARCHAR, 
+	password VARCHAR, 
+	PRIMARY KEY (id)
+)
+
+
+[no key 0.00012s] ()
+
+CREATE TABLE city (
+	id INTEGER NOT NULL, 
+	"adminId" INTEGER, 
+	name VARCHAR, 
+	url VARCHAR, 
+	PRIMARY KEY (id), 
+	FOREIGN KEY("adminId") REFERENCES admin (id)
+)
+
+
+[no key 0.00010s] ()
+
+CREATE TABLE usercity (
+	id INTEGER NOT NULL, 
+	"userId" INTEGER, 
+	"cityId" INTEGER, 
+	month VARCHAR, 
+	year VARCHAR, 
+	weather_params VARCHAR, 
+	PRIMARY KEY (id), 
+	FOREIGN KEY("userId") REFERENCES user (id), 
+	FOREIGN KEY("cityId") REFERENCES city (id)
+)
+
+
+[no key 0.00011s] ()
+COMMIT
+Inside add_admin
+Received request:{'name': 'Admin1', 'password': 'Admin1'}
+BEGIN (implicit)
+SELECT admin.id AS admin_id, admin.name AS admin_name, admin.password AS admin_password 
+FROM admin 
+WHERE admin.name = ?
+ LIMIT ? OFFSET ?
+[generated in 0.00017s] ('Admin1', 1, 0)
+INSERT INTO admin (name, password) VALUES (?, ?)
+[generated in 0.00017s] ('Admin1', 'Admin1')
+COMMIT
+BEGIN (implicit)
+SELECT admin.id, admin.name, admin.password 
+FROM admin 
+WHERE admin.id = ?
+[generated in 0.00012s] (1,)
+ROLLBACK
+127.0.0.1 - - [11/Mar/2026 20:09:56] "POST /admin HTTP/1.1" 200 -
+Inside get_admins
+BEGIN (implicit)
+SELECT admin.id AS admin_id, admin.name AS admin_name, admin.password AS admin_password 
+FROM admin
+[generated in 0.00037s] ()
+ROLLBACK
+127.0.0.1 - - [11/Mar/2026 20:09:59] "GET /admin HTTP/1.1" 200 -
+Inside get_admin_by_id 1
+
+BEGIN (implicit)
+SELECT admin.id AS admin_id, admin.name AS admin_name, admin.password AS admin_password 
+FROM admin 
+WHERE admin.id = ?
+[generated in 0.00046s] ('1',)
+ROLLBACK
+127.0.0.1 - - [11/Mar/2026 20:10:02] "GET /admin/1 HTTP/1.1" 200 -
+Inside delete_admin_by_id 1
+
+BEGIN (implicit)
+SELECT admin.id AS admin_id, admin.name AS admin_name, admin.password AS admin_password 
+FROM admin 
+WHERE admin.id = ?
+ LIMIT ? OFFSET ?
+[generated in 0.00052s] ('1', 1, 0)
+DELETE FROM admin WHERE admin.id = ?
+[generated in 0.00021s] (1,)
+COMMIT
+127.0.0.1 - - [11/Mar/2026 20:10:05] "DELETE /admin/1 HTTP/1.1" 200 -
+Inside get_admin_by_id 1
+
+BEGIN (implicit)
+SELECT admin.id AS admin_id, admin.name AS admin_name, admin.password AS admin_password 
+FROM admin 
+WHERE admin.id = ?
+[cached since 18.02s ago] ('1',)
+ROLLBACK
+127.0.0.1 - - [11/Mar/2026 20:10:20] "[33mGET /admin/1 HTTP/1.1[0m" 404 -
+127.0.0.1 - - [11/Mar/2026 20:10:20] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+Inside add_user
+Received request:{'name': 'User1', 'password': 'User1'}
+BEGIN (implicit)
+SELECT user.id AS user_id, user.name AS user_name, user.password AS user_password 
+FROM user 
+WHERE user.name = ?
+ LIMIT ? OFFSET ?
+[generated in 0.00041s] ('User1', 1, 0)
+INSERT INTO user (name, password) VALUES (?, ?)
+[generated in 0.00014s] ('User1', 'User1')
+COMMIT
+BEGIN (implicit)
+SELECT user.id, user.name, user.password 
+FROM user 
+WHERE user.id = ?
+[generated in 0.00015s] (1,)
+ROLLBACK
+127.0.0.1 - - [11/Mar/2026 20:10:23] "POST /users HTTP/1.1" 200 -
+Inside get_users
+BEGIN (implicit)
+SELECT user.id AS user_id, user.name AS user_name, user.password AS user_password 
+FROM user
+[generated in 0.00093s] ()
+ROLLBACK
+127.0.0.1 - - [11/Mar/2026 20:10:29] "GET /users HTTP/1.1" 200 -
+Inside get_user_by_id 1
+
+BEGIN (implicit)
+SELECT user.id AS user_id, user.name AS user_name, user.password AS user_password 
+FROM user 
+WHERE user.id = ?
+[generated in 0.00059s] ('1',)
+ROLLBACK
+127.0.0.1 - - [11/Mar/2026 20:10:32] "GET /users/1 HTTP/1.1" 200 -
+Inside delete_user_by_id 1
+
+BEGIN (implicit)
+SELECT user.id AS user_id, user.name AS user_name, user.password AS user_password 
+FROM user 
+WHERE user.id = ?
+ LIMIT ? OFFSET ?
+[generated in 0.00067s] ('1', 1, 0)
+DELETE FROM user WHERE user.id = ?
+[generated in 0.00017s] (1,)
+COMMIT
+127.0.0.1 - - [11/Mar/2026 20:10:35] "DELETE /users/1 HTTP/1.1" 200 -
+Inside add_admin
+Received request:{'name': 'Admin1', 'password': 'Admin1'}
+BEGIN (implicit)
+SELECT admin.id AS admin_id, admin.name AS admin_name, admin.password AS admin_password 
+FROM admin 
+WHERE admin.name = ?
+ LIMIT ? OFFSET ?
+[cached since 53.32s ago] ('Admin1', 1, 0)
+INSERT INTO admin (name, password) VALUES (?, ?)
+[cached since 53.32s ago] ('Admin1', 'Admin1')
+COMMIT
+BEGIN (implicit)
+SELECT admin.id, admin.name, admin.password 
+FROM admin 
+WHERE admin.id = ?
+[cached since 53.32s ago] (1,)
+ROLLBACK
+127.0.0.1 - - [11/Mar/2026 20:10:49] "POST /admin HTTP/1.1" 200 -
+Inside add_city for admin 1
+
+BEGIN (implicit)
+SELECT admin.id AS admin_id, admin.name AS admin_name, admin.password AS admin_password 
+FROM admin 
+WHERE admin.id = ?
+[cached since 50.77s ago] ('1',)
+INSERT INTO city ("adminId", name, url) VALUES (?, ?, ?)
+[generated in 0.00023s] ('1', 'Austin', 'http://austin-url.html')
+COMMIT
+BEGIN (implicit)
+SELECT city.id, city."adminId", city.name, city.url 
+FROM city 
+WHERE city.id = ?
+[generated in 0.00012s] (1,)
+ROLLBACK
+127.0.0.1 - - [11/Mar/2026 20:10:53] "POST /admin/1/cities HTTP/1.1" 200 -
+Inside add_city for admin 1
+
+BEGIN (implicit)
+SELECT admin.id AS admin_id, admin.name AS admin_name, admin.password AS admin_password 
+FROM admin 
+WHERE admin.id = ?
+[cached since 54.02s ago] ('1',)
+INSERT INTO city ("adminId", name, url) VALUES (?, ?, ?)
+[cached since 3.241s ago] ('1', 'Dallas', 'http://dallas-url.html')
+COMMIT
+BEGIN (implicit)
+SELECT city.id, city."adminId", city.name, city.url 
+FROM city 
+WHERE city.id = ?
+[cached since 3.24s ago] (2,)
+ROLLBACK
+127.0.0.1 - - [11/Mar/2026 20:10:56] "POST /admin/1/cities HTTP/1.1" 200 -
+Inside add_city for admin 1
+
+BEGIN (implicit)
+SELECT admin.id AS admin_id, admin.name AS admin_name, admin.password AS admin_password 
+FROM admin 
+WHERE admin.id = ?
+[cached since 57.47s ago] ('1',)
+INSERT INTO city ("adminId", name, url) VALUES (?, ?, ?)
+[cached since 6.695s ago] ('1', 'Houston', 'http://houston-url.html')
+COMMIT
+BEGIN (implicit)
+SELECT city.id, city."adminId", city.name, city.url 
+FROM city 
+WHERE city.id = ?
+[cached since 6.693s ago] (3,)
+ROLLBACK
+127.0.0.1 - - [11/Mar/2026 20:11:00] "POST /admin/1/cities HTTP/1.1" 200 -
+Inside get_cities for admin 1
+
+BEGIN (implicit)
+SELECT admin.id AS admin_id, admin.name AS admin_name, admin.password AS admin_password 
+FROM admin 
+WHERE admin.id = ?
+[cached since 60.6s ago] ('1',)
+SELECT city.id AS city_id, city."adminId" AS "city_adminId", city.name AS city_name, city.url AS city_url 
+FROM city 
+WHERE city."adminId" = ?
+[generated in 0.00020s] ('1',)
+ROLLBACK
+127.0.0.1 - - [11/Mar/2026 20:11:03] "GET /admin/1/cities HTTP/1.1" 200 -
+Inside get_city_by_id admin:1 city:1
+
+BEGIN (implicit)
+SELECT admin.id AS admin_id, admin.name AS admin_name, admin.password AS admin_password 
+FROM admin 
+WHERE admin.id = ?
+[cached since 64.42s ago] ('1',)
+SELECT city.id AS city_id, city."adminId" AS "city_adminId", city.name AS city_name, city.url AS city_url 
+FROM city 
+WHERE city.id = ? AND city."adminId" = ?
+ LIMIT ? OFFSET ?
+[generated in 0.00014s] ('1', '1', 1, 0)
+ROLLBACK
+127.0.0.1 - - [11/Mar/2026 20:11:07] "GET /admin/1/cities/1 HTTP/1.1" 200 -
+Inside get_city_by_id admin:1 city:10
+
+BEGIN (implicit)
+SELECT admin.id AS admin_id, admin.name AS admin_name, admin.password AS admin_password 
+FROM admin 
+WHERE admin.id = ?
+[cached since 67.84s ago] ('1',)
+SELECT city.id AS city_id, city."adminId" AS "city_adminId", city.name AS city_name, city.url AS city_url 
+FROM city 
+WHERE city.id = ? AND city."adminId" = ?
+ LIMIT ? OFFSET ?
+[cached since 3.413s ago] ('10', '1', 1, 0)
+ROLLBACK
+127.0.0.1 - - [11/Mar/2026 20:11:10] "[33mGET /admin/1/cities/10 HTTP/1.1[0m" 404 -
+Inside get_city_by_id admin:2 city:1
+
+BEGIN (implicit)
+SELECT admin.id AS admin_id, admin.name AS admin_name, admin.password AS admin_password 
+FROM admin 
+WHERE admin.id = ?
+[cached since 70.58s ago] ('2',)
+ROLLBACK
+127.0.0.1 - - [11/Mar/2026 20:11:13] "[33mGET /admin/2/cities/1 HTTP/1.1[0m" 404 -
+Inside add_admin
+Received request:{'name': 'Admin2', 'password': 'Admin2'}
+BEGIN (implicit)
+SELECT admin.id AS admin_id, admin.name AS admin_name, admin.password AS admin_password 
+FROM admin 
+WHERE admin.name = ?
+ LIMIT ? OFFSET ?
+[cached since 91.28s ago] ('Admin2', 1, 0)
+INSERT INTO admin (name, password) VALUES (?, ?)
+[cached since 91.28s ago] ('Admin2', 'Admin2')
+COMMIT
+BEGIN (implicit)
+SELECT admin.id, admin.name, admin.password 
+FROM admin 
+WHERE admin.id = ?
+[cached since 91.28s ago] (2,)
+ROLLBACK
+127.0.0.1 - - [11/Mar/2026 20:11:27] "POST /admin HTTP/1.1" 200 -
+Inside add_city for admin 2
+
+BEGIN (implicit)
+SELECT admin.id AS admin_id, admin.name AS admin_name, admin.password AS admin_password 
+FROM admin 
+WHERE admin.id = ?
+[cached since 87.8s ago] ('2',)
+INSERT INTO city ("adminId", name, url) VALUES (?, ?, ?)
+[cached since 37.02s ago] ('2', 'San Antonio', 'http://san-antonio-url.html')
+COMMIT
+BEGIN (implicit)
+SELECT city.id, city."adminId", city.name, city.url 
+FROM city 
+WHERE city.id = ?
+[cached since 37.02s ago] (4,)
+ROLLBACK
+127.0.0.1 - - [11/Mar/2026 20:11:30] "POST /admin/2/cities HTTP/1.1" 200 -
+Inside add_user
+Received request:{'name': 'User1', 'password': 'User1'}
+BEGIN (implicit)
+SELECT user.id AS user_id, user.name AS user_name, user.password AS user_password 
+FROM user 
+WHERE user.name = ?
+ LIMIT ? OFFSET ?
+[cached since 70.3s ago] ('User1', 1, 0)
+INSERT INTO user (name, password) VALUES (?, ?)
+[cached since 70.3s ago] ('User1', 'User1')
+COMMIT
+BEGIN (implicit)
+SELECT user.id, user.name, user.password 
+FROM user 
+WHERE user.id = ?
+[cached since 70.3s ago] (1,)
+ROLLBACK
+127.0.0.1 - - [11/Mar/2026 20:11:33] "POST /users HTTP/1.1" 200 -
+Inside add_user_city for user 1
+
+BEGIN (implicit)
+SELECT user.id AS user_id, user.name AS user_name, user.password AS user_password 
+FROM user 
+WHERE user.id = ?
+[cached since 64.44s ago] ('1',)
+SELECT city.id AS city_id, city."adminId" AS "city_adminId", city.name AS city_name, city.url AS city_url 
+FROM city 
+WHERE city.name = ?
+ LIMIT ? OFFSET ?
+[generated in 0.00012s] ('Austin', 1, 0)
+INSERT INTO usercity ("userId", "cityId", month, year, weather_params) VALUES (?, ?, ?, ?, ?)
+[generated in 0.00010s] ('1', 1, 'August', '2023', 'TMAX,TMIN')
+COMMIT
+BEGIN (implicit)
+SELECT usercity.id, usercity."userId", usercity."cityId", usercity.month, usercity.year, usercity.weather_params 
+FROM usercity 
+WHERE usercity.id = ?
+[generated in 0.00013s] (1,)
+ROLLBACK
+127.0.0.1 - - [11/Mar/2026 20:11:37] "POST /users/1/cities HTTP/1.1" 200 -
+Inside add_user_city for user 1
+
+BEGIN (implicit)
+SELECT user.id AS user_id, user.name AS user_name, user.password AS user_password 
+FROM user 
+WHERE user.id = ?
+[cached since 68.39s ago] ('1',)
+SELECT city.id AS city_id, city."adminId" AS "city_adminId", city.name AS city_name, city.url AS city_url 
+FROM city 
+WHERE city.name = ?
+ LIMIT ? OFFSET ?
+[cached since 3.946s ago] ('Dallas', 1, 0)
+INSERT INTO usercity ("userId", "cityId", month, year, weather_params) VALUES (?, ?, ?, ?, ?)
+[cached since 3.945s ago] ('1', 2, 'July', '2023', 'TMAX,TMIN,SNOW')
+COMMIT
+BEGIN (implicit)
+SELECT usercity.id, usercity."userId", usercity."cityId", usercity.month, usercity.year, usercity.weather_params 
+FROM usercity 
+WHERE usercity.id = ?
+[cached since 3.945s ago] (2,)
+ROLLBACK
+127.0.0.1 - - [11/Mar/2026 20:11:40] "POST /users/1/cities HTTP/1.1" 200 -
+Inside add_user_city for user 1
+
+BEGIN (implicit)
+SELECT user.id AS user_id, user.name AS user_name, user.password AS user_password 
+FROM user 
+WHERE user.id = ?
+[cached since 71.71s ago] ('1',)
+SELECT city.id AS city_id, city."adminId" AS "city_adminId", city.name AS city_name, city.url AS city_url 
+FROM city 
+WHERE city.name = ?
+ LIMIT ? OFFSET ?
+[cached since 7.269s ago] ('San Antonio', 1, 0)
+INSERT INTO usercity ("userId", "cityId", month, year, weather_params) VALUES (?, ?, ?, ?, ?)
+[cached since 7.268s ago] ('1', 4, 'August', '2023', 'TMAX,TMIN')
+COMMIT
+BEGIN (implicit)
+SELECT usercity.id, usercity."userId", usercity."cityId", usercity.month, usercity.year, usercity.weather_params 
+FROM usercity 
+WHERE usercity.id = ?
+[cached since 7.267s ago] (3,)
+ROLLBACK
+127.0.0.1 - - [11/Mar/2026 20:11:44] "POST /users/1/cities HTTP/1.1" 200 -
+Inside get_user_cities for user 1
+
+BEGIN (implicit)
+SELECT user.id AS user_id, user.name AS user_name, user.password AS user_password 
+FROM user 
+WHERE user.id = ?
+[cached since 87.37s ago] ('1',)
+SELECT city.id AS city_id, city."adminId" AS "city_adminId", city.name AS city_name, city.url AS city_url 
+FROM city 
+WHERE city.name = ?
+ LIMIT ? OFFSET ?
+[cached since 22.93s ago] ('Austin', 1, 0)
+SELECT usercity.id AS usercity_id, usercity."userId" AS "usercity_userId", usercity."cityId" AS "usercity_cityId", usercity.month AS usercity_month, usercity.year AS usercity_year, usercity.weather_params AS usercity_weather_params 
+FROM usercity 
+WHERE usercity."userId" = ? AND usercity."cityId" = ?
+ LIMIT ? OFFSET ?
+[generated in 0.00020s] ('1', 1, 1, 0)
+ROLLBACK
+127.0.0.1 - - [11/Mar/2026 20:11:59] "GET /users/1/cities?name=Austin HTTP/1.1" 200 -
+Inside get_user_cities for user 2
+
+BEGIN (implicit)
+SELECT user.id AS user_id, user.name AS user_name, user.password AS user_password 
+FROM user 
+WHERE user.id = ?
+[cached since 90.18s ago] ('2',)
+ROLLBACK
+127.0.0.1 - - [11/Mar/2026 20:12:02] "[33mGET /users/2/cities?name=Austin HTTP/1.1[0m" 404 -
+Inside get_user_cities for user 1
+
+BEGIN (implicit)
+SELECT user.id AS user_id, user.name AS user_name, user.password AS user_password 
+FROM user 
+WHERE user.id = ?
+[cached since 93.35s ago] ('1',)
+SELECT city.id AS city_id, city."adminId" AS "city_adminId", city.name AS city_name, city.url AS city_url 
+FROM city 
+WHERE city.name = ?
+ LIMIT ? OFFSET ?
+[cached since 28.9s ago] ('Houston', 1, 0)
+SELECT usercity.id AS usercity_id, usercity."userId" AS "usercity_userId", usercity."cityId" AS "usercity_cityId", usercity.month AS usercity_month, usercity.year AS usercity_year, usercity.weather_params AS usercity_weather_params 
+FROM usercity 
+WHERE usercity."userId" = ? AND usercity."cityId" = ?
+ LIMIT ? OFFSET ?
+[cached since 5.974s ago] ('1', 3, 1, 0)
+ROLLBACK
+127.0.0.1 - - [11/Mar/2026 20:12:05] "[33mGET /users/1/cities?name=Houston HTTP/1.1[0m" 404 -
+Inside get_user_cities for user 1
+
+BEGIN (implicit)
+SELECT user.id AS user_id, user.name AS user_name, user.password AS user_password 
+FROM user 
+WHERE user.id = ?
+[cached since 96.12s ago] ('1',)
+SELECT city.id AS city_id, city."adminId" AS "city_adminId", city.name AS city_name, city.url AS city_url 
+FROM city 
+WHERE city.name = ?
+ LIMIT ? OFFSET ?
+[cached since 31.68s ago] ('San Antonio', 1, 0)
+SELECT usercity.id AS usercity_id, usercity."userId" AS "usercity_userId", usercity."cityId" AS "usercity_cityId", usercity.month AS usercity_month, usercity.year AS usercity_year, usercity.weather_params AS usercity_weather_params 
+FROM usercity 
+WHERE usercity."userId" = ? AND usercity."cityId" = ?
+ LIMIT ? OFFSET ?
+[cached since 8.747s ago] ('1', 4, 1, 0)
+ROLLBACK
+127.0.0.1 - - [11/Mar/2026 20:12:08] "GET /users/1/cities?name=San%20Antonio HTTP/1.1" 200 -
