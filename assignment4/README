@@ -1,3 +1,7 @@
+name: <Anish Ravindran>
+eid: <ar76454>
+githubusername: <AnishRavi5>
+
 WRF Web App
 ============
 
